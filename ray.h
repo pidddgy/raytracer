@@ -12,6 +12,10 @@ class ray {
             return orig;
         }
 
+        vec3 direction() const {
+            return dir;
+        }
+
         vec3 at(double t) const {
             return orig + dir*t;
         }
