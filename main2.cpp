@@ -6,9 +6,8 @@
 
 color ray_color(const ray& r) {
     vec3 unit_direction = unit_vector(r.direction());
-    auto a = (unit_direction.x() + 1.0) / 2; 
-    // return color(0, 0, 0)*(1.0-a) + color(0, 0, 1)*a;
-    return color(1, 1, 1)*(1.0-a) + color(1, 0, 1)*a;
+    auto a = 0.5*(unit_direction.y() + 1.0);
+    return color(1.0, 1.0, 1.0)*(1.0-a) + color(0.5, 0.7, 1.0)*a;
 }
  
 int main() {
@@ -46,9 +45,9 @@ int main() {
     auto pixel00_loc = viewport_upper_left = viewport_upper_left + pixel_delta_u/2 + pixel_delta_v/2;
 
     std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
-    for(int i = 0; i < image_height; i++) {
-        std::clog << "\r Scanlines remaining: " << image_height - i << " " << std::flush;
-        for(int j = 0; j < image_width; j++) {
+    for(int j = 0; j < image_height; j++) {
+        std::clog << "\r Scanlines remaining: " << image_height - j << " " << std::flush;
+        for(int i = 0; i < image_width; i++) {
             auto pixel_center = pixel00_loc + (pixel_delta_u*i) + (pixel_delta_v*j);
             auto ray_direction = pixel_center - camera_center;
 
